@@ -5,7 +5,7 @@ colnames(ivis)[1] <- 'Mouse'
 ivis$Mouse <- factor(ivis$Mouse)
 ivis$Day <- factor(ivis$Day)
 
-svg('nat_comm_figs2.svg', width=16, height=9)
+svg('Figure_S2.svg', width=16, height=9)
 ggplot(ivis, aes(x=Day, y=Avg_Rad_Eff, group=Mouse, colour=Mouse)) +
   geom_line(size=1.5) +
   geom_point(size=3) +

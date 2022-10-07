@@ -5,7 +5,7 @@ library(stringr)
 library(ggplot2)
 library(RColorBrewer)
 
-dir <- file.path('path/to/data')
+dir <- file.path('path/to/data')  # data from MSV000083628
 spectra_list_raw <- import(dir)
 
 preprocessing_workflow <- function(spectra_list, cores, snr, tol) {
@@ -90,7 +90,7 @@ colnames(prot_s100_mean) <- c('Mouse', 'day', 'mean_intensity')
 prot_s100_mean$Mouse <- as.factor(prot_s100_mean$Mouse)
 prot_s100_mean$day <- as.factor(prot_s100_mean$day)
 
-svg('nat_comm_figs1a.svg', width=16, height=9)
+svg('Figure_S1A.svg', width=16, height=9)
 ggplot(prot_s100, aes(x=day, y=intensity, fill=Mouse)) +
   geom_boxplot(outlier.shape=NA) +
   theme(panel.grid.major=element_blank(),
@@ -104,7 +104,7 @@ ggplot(prot_s100, aes(x=day, y=intensity, fill=Mouse)) +
   scale_fill_brewer(palette='Dark2')
 dev.off()
 
-svg('nat_comm_figs1b.svg', width=16, height=9)
+svg('Figure_S1B.svg', width=16, height=9)
 ggplot(prot_s100_mean, aes(x=day, y=mean_intensity, group=Mouse)) +
   geom_smooth(method='lm', aes(color=Mouse), se=FALSE, size=2.5) +
   theme(panel.grid.major=element_blank(),

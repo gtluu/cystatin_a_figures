@@ -7,6 +7,7 @@ m901$sample <- str_replace(m901$sample, '100pM', '100 pM Cystatin A')
 m901$sample <- str_replace(m901$sample, 'day0', 'Day 0')
 m901$sample <- str_replace(m901$sample, 'day14', 'Day 14')
 m901$sample <- str_replace(m901$sample, 'day28', 'Day 28')
+m901$sample <- str_replace(m901$sample, 'day42', 'Day 42')
 
 m902 <- read.csv('M902_updated.csv')
 colnames(m902)[1] <- 'time'
@@ -42,7 +43,7 @@ m905$sample <- str_replace(m905$sample, 'day28', 'Day 28')
 m905$sample <- str_replace(m905$sample, 'day42', 'Day 42')
 m905$sample <- str_replace(m905$sample, 'day56', 'Day 56')
 
-svg('nat_comm_figs3a.svg', width=16, height=9)
+svg('Figure_S3A.svg', width=16, height=9)
 ggplot(m901, aes(x=time)) +
   geom_line(aes(y=shift, colour=sample), size=1.5) +
   geom_line(aes(y=fitting, colour=sample), size=1.5, linetype='dashed') +
@@ -58,7 +59,7 @@ ggplot(m901, aes(x=time)) +
   scale_fill_brewer(palette='Paired')
 dev.off()
 
-svg('nat_comm_figs3b.svg', width=16, height=9)
+svg('Figure_S3B.svg', width=16, height=9)
 ggplot(m902, aes(x=time)) +
   geom_line(aes(y=shift, colour=sample), size=1.5) +
   geom_line(aes(y=fitting, colour=sample), size=1.5, linetype='dashed') +
@@ -74,7 +75,7 @@ ggplot(m902, aes(x=time)) +
   scale_fill_brewer(palette='Paired')
 dev.off()
 
-svg('nat_comm_figs3c.svg', width=16, height=9)
+svg('Figure_S3C.svg', width=16, height=9)
 ggplot(m903, aes(x=time)) +
   geom_line(aes(y=shift, colour=sample), size=1.5) +
   geom_line(aes(y=fitting, colour=sample), size=1.5, linetype='dashed') +
@@ -90,7 +91,7 @@ ggplot(m903, aes(x=time)) +
   scale_fill_brewer(palette='Paired')
 dev.off()
 
-svg('nat_comm_figs3d.svg', width=16, height=9)
+svg('Figure_S3D.svg', width=16, height=9)
 ggplot(m904, aes(x=time)) +
   geom_line(aes(y=shift, colour=sample), size=1.5) +
   geom_line(aes(y=fitting, colour=sample), size=1.5, linetype='dashed') +
@@ -106,7 +107,7 @@ ggplot(m904, aes(x=time)) +
   scale_fill_brewer(palette='Paired')
 dev.off()
 
-svg('nat_comm_figs3e.svg', width=16, height=9)
+svg('Figure_S3E.svg', width=16, height=9)
 ggplot(m905, aes(x=time)) +
   geom_line(aes(y=shift, colour=sample), size=1.5) +
   geom_line(aes(y=fitting, colour=sample), size=1.5, linetype='dashed') +

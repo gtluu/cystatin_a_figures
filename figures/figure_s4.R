@@ -2,7 +2,7 @@ library(ggplot2)
 library(RColorBrewer)
 library(stringr)
 
-setwd('F:/Backups/F Drive NVME 12-2021 2/melissa/r')
+setwd('path/to/data')
 
 data <- read.csv('Figure_S4.csv')
 colnames(data)[1] <- 'time'
@@ -17,7 +17,7 @@ data$Sample <- factor(data$Sample, levels=c('Buffer Subtraction',
                                             '100 nM Cystatin A',
                                             '200 nM Cystatin A'))
 
-svg('nat_comm_figs4.svg', width=16, height=9)
+svg('Figure_S4.svg', width=16, height=9)
 ggplot(data, aes(x=time, y=wavelength, colour=Sample)) +
   geom_line(size=1.5) +
   theme(panel.grid.major=element_blank(),
@@ -27,7 +27,7 @@ ggplot(data, aes(x=time, y=wavelength, colour=Sample)) +
         text=element_text(size=32)) +
   labs(title='FLOWER Relative Shifts of Cystatin A Over Time',
        x='Time (sec)',
-       y='Wavelength (fm)',
+       y='Relative Shift (fm)',
        colour='Concentration') +
   scale_fill_brewer(palette='Paired')
 dev.off()
