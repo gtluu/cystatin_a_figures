@@ -94,12 +94,15 @@ cystatin_mean_1$tampon <- as.factor(cystatin_mean_1$tampon)
 cystatin_mean_1$condition <- as.factor(cystatin_mean_1$condition)
 cystatin_mean_1$intensity <- as.numeric(cystatin_mean_1$intensity)
 
+# benign vs ovarian cancer t-test
+t.test(intensity ~ condition, data=cystatin)
+
 # bar plot with MALDI intensities
 tampon_subset <- cystatin_mean_1[which(cystatin_mean_1$tampon %in% c('TP10', 'TP24', 'TP34', 'TP42', 'TP48', 'TP50')),]
 colnames(tampon_subset)[1] <- 'Tampon'
 svg('Figure_5A.svg', width=16, height=9)
-ggplot(tampon_subset, aes(x=condition, y=intensity, fill=Tampon)) +
-  geom_bar(position='dodge', stat='identity') +
+ggplot(cystatin, aes(x=condition, y=intensity, fill=Tampon)) +
+  geom_boxplot(outlier.shape=NA) +
   theme(panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(),
         panel.background=element_blank(),

@@ -6,7 +6,7 @@ calibration_curve <- read.csv('flower_cystatin_a_calibration_curve.csv')
 colnames(calibration_curve) <- c('standard_concentration', 'initial_slope')
 calibration_curve$standard_concentration <- log(calibration_curve$standard_concentration)
 
-svg('Figure_S6.svg', width=12, height=12)
+svg('Figure_S5.svg', width=12, height=12)
 ggplot(calibration_curve, aes(x=standard_concentration, y=initial_slope)) +
   geom_point(size=3, colour='black') +
   geom_smooth(method='lm', se=FALSE, size=1.5, colour='black') +

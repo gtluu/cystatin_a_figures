@@ -5,7 +5,7 @@ library(stringr)
 library(ggplot2)
 library(RColorBrewer)
 
-dir <- file.path('path/to/data')  # data from MSV000083628
+dir <- file.path('/path/to/data')  # data from MSV000083628
 spectra_list_raw <- import(dir)
 
 preprocessing_workflow <- function(spectra_list, cores, snr, tol) {
@@ -90,6 +90,18 @@ colnames(cystatin_mean) <- c('Mouse', 'day', 'mean_intensity')
 cystatin_mean$Mouse <- as.factor(cystatin_mean$Mouse)
 cystatin_mean$day <- as.factor(cystatin_mean$day)
 
+# get r squared values
+for (m in c(901, 902, 903, 904, 905)) {
+  reg <- lm(intensity ~ day, cystatin[which(cystatin$Mouse == m),])
+  print(summary(reg))
+}
+
+# early stage vs late stage t-test
+t.test(cystatin[which(cystatin$day==0),]$intensity,
+       cystatin[which(cystatin$day==56),]$intensity)
+wilcox.test(cystatin[which(cystatin$day==0),]$intensity,
+            cystatin[which(cystatin$day==56),]$intensity)
+
 svg('Figure_2A.svg', width=16, height=9)
 ggplot(cystatin, aes(x=day, y=intensity, fill=Mouse)) +
   geom_boxplot(outlier.shape=NA) +
@@ -107,6 +119,20 @@ dev.off()
 svg('Figure_2B.svg', width=16, height=9)
 ggplot(cystatin_mean, aes(x=day, y=mean_intensity, group=Mouse)) +
   geom_smooth(method='lm', aes(color=Mouse), se=FALSE, size=2.5) +
+  theme(panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.background=element_blank(),
+        axis.line=element_line(colour='black', size=1.5),
+        text=element_text(size=32)) +
+  labs(title='Mean Intensity of Cystatin A (m/z 11007 +/- 30 ppm) Over Time',
+       x='Day',
+       y='Processed Mean Peak Intensity') +
+  scale_colour_brewer(palette='Dark2')
+dev.off()
+
+svg('Figure_2B_se.svg', width=16, height=9)
+ggplot(cystatin_mean, aes(x=day, y=mean_intensity, group=Mouse)) +
+  geom_smooth(method='lm', aes(color=Mouse), se=TRUE, size=2.5) +
   theme(panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(),
         panel.background=element_blank(),

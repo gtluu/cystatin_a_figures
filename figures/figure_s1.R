@@ -5,7 +5,7 @@ library(stringr)
 library(ggplot2)
 library(RColorBrewer)
 
-dir <- file.path('path/to/data')  # data from MSV000083628
+dir <- file.path('/path/to/data')  # data from MSV000083628
 spectra_list_raw <- import(dir)
 
 preprocessing_workflow <- function(spectra_list, cores, snr, tol) {
@@ -90,6 +90,12 @@ colnames(prot_s100_mean) <- c('Mouse', 'day', 'mean_intensity')
 prot_s100_mean$Mouse <- as.factor(prot_s100_mean$Mouse)
 prot_s100_mean$day <- as.factor(prot_s100_mean$day)
 
+# get r squared values
+for (m in c(901, 902, 903, 904, 905)) {
+  reg <- lm(intensity ~ day, prot_s100[which(prot_s100$Mouse == m),])
+  print(summary(reg))
+}
+
 svg('Figure_S1A.svg', width=16, height=9)
 ggplot(prot_s100, aes(x=day, y=intensity, fill=Mouse)) +
   geom_boxplot(outlier.shape=NA) +
@@ -107,6 +113,20 @@ dev.off()
 svg('Figure_S1B.svg', width=16, height=9)
 ggplot(prot_s100_mean, aes(x=day, y=mean_intensity, group=Mouse)) +
   geom_smooth(method='lm', aes(color=Mouse), se=FALSE, size=2.5) +
+  theme(panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.background=element_blank(),
+        axis.line=element_line(colour='black', size=1.5),
+        text=element_text(size=32)) +
+  labs(title='Mean Intensity of Protein S100-A8 (m/z 10835 +/- 40 ppm) Over Time',
+       x='Day',
+       y='Processed Mean Peak Intensity') +
+  scale_colour_brewer(palette='Dark2')
+dev.off()
+
+svg('Figure_S1B_se.svg', width=16, height=9)
+ggplot(prot_s100_mean, aes(x=day, y=mean_intensity, group=Mouse)) +
+  geom_smooth(method='lm', aes(color=Mouse), se=TRUE, size=2.5) +
   theme(panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(),
         panel.background=element_blank(),

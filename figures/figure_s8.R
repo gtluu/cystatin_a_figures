@@ -1,0 +1,25 @@
+library(ggplot2)
+library(RColorBrewer)
+
+setwd('path/to/data')
+
+initial_slopes <- read.csv('flower_calibrated_initial_slopes.csv')
+colnames(initial_slopes)[1] <- 'mouse'
+initial_slopes$mouse <- factor(initial_slopes$mouse)
+initial_slopes$day <- factor(initial_slopes$day)
+
+svg('Figure_S8.svg', width=12, height=12)
+ggplot(initial_slopes, aes(x=day, y=initial_slopes, group=mouse, colour=mouse)) +
+  geom_smooth(method='lm', aes(color=mouse), se=TRUE, size=1.5) +
+  geom_hline(yintercept=40, linetype='dashed', size=1.5) +
+  theme(panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        panel.background=element_blank(),
+        axis.line=element_line(colour='black', size=1.5),
+        text=element_text(size=32)) +
+  labs(title='Linear Regression for Calibrated \nInitial Slopes Over Time',
+       x='Day',
+       y='Initial Slope (fm/s)',
+       colour='Mouse') +
+  scale_color_manual(values=brewer.pal(5, 'Dark2'))
+dev.off()
