@@ -1,4 +1,5 @@
 library(ggplot2)
+library(RColorBrewer)
 
 ivis <- read.csv('900_mice_ivis.csv')
 colnames(ivis)[1] <- 'Mouse'
@@ -14,7 +15,7 @@ ggplot(ivis, aes(x=Day, y=Avg_Rad_Eff, group=Mouse, colour=Mouse)) +
         panel.background=element_blank(),
         axis.line=element_line(colour='black', size=1.5),
         text=element_text(size=32)) +
-  labs(title='Increase in Tumor Buden Over Time',
+  labs(title='Increase in Tumor Burden Over Time',
        x='Day',
        y='Average Radiant Efficiency',
        colour='Mouse') +
