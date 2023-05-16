@@ -113,12 +113,13 @@ ggplot(cystatin, aes(x=condition, y=intensity, fill=Tampon)) +
        y='Processed Peak Intensity')
 dev.off()
 
-data <- read.csv('flower_calibrated_initial_slopes_tampons_long.csv')
-colnames(data) <- c('time', 'shift', 'Tampon')
+data <- read.csv('flower_tampons_long.csv')
+colnames(data) <- c('time', 'shift', 'fitting', 'Tampon')
 
 svg('Figure_5B.svg', width=16, height=9)
 ggplot(data, aes(x=time)) +
   geom_line(aes(y=shift, colour=Tampon), size=1.5) +
+  geom_line(aes(y=fitting, colour=Tampon), size=1.5, linetype='dashed') +
   theme(panel.grid.major=element_blank(),
         panel.grid.minor=element_blank(),
         panel.background=element_blank(),

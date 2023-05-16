@@ -4,7 +4,7 @@ library(ggplot2)
 # initial slope units == fm/s
 calibration_curve <- read.csv('flower_cystatin_a_calibration_curve.csv')
 colnames(calibration_curve) <- c('standard_concentration', 'initial_slope')
-calibration_curve$standard_concentration <- log(calibration_curve$standard_concentration)
+calibration_curve$standard_concentration <- log(calibration_curve$standard_concentration, base=10)
 
 svg('Figure_S5.svg', width=12, height=12)
 ggplot(calibration_curve, aes(x=standard_concentration, y=initial_slope)) +
@@ -16,6 +16,6 @@ ggplot(calibration_curve, aes(x=standard_concentration, y=initial_slope)) +
         axis.line=element_line(colour='black', size=1.5),
         text=element_text(size=32)) +
   labs(title='Cystatin A Calibration Curve',
-       x='log(Cystatin A Concentration) (pM)',
+       x='log10(Cystatin A Concentration) (pM)',
        y='Initial Slope (fm/s)')
 dev.off()

@@ -1,3 +1,4 @@
+library(stringr)
 library(ggplot2)
 library(RColorBrewer)
 
