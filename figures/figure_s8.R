@@ -8,7 +8,7 @@ colnames(initial_slopes)[1] <- 'mouse'
 initial_slopes$mouse <- factor(initial_slopes$mouse)
 initial_slopes$day <- factor(initial_slopes$day)
 
-svg('Figure_S8.svg', width=12, height=12)
+svg('Figure_S8.svg', width=16, height=9)
 ggplot(initial_slopes, aes(x=day, y=initial_slopes, group=mouse, colour=mouse)) +
   geom_smooth(method='lm', aes(color=mouse), se=TRUE, size=1.5) +
   geom_hline(yintercept=40, linetype='dashed', size=1.5) +
